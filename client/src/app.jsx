@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios'
 const LineChart = require("react-chartjs").Line;
 
 class App extends React.Component {
@@ -28,12 +29,41 @@ class App extends React.Component {
         }
     }
 
+    getPrices(start,end) {
+        axios.post('/getPrices').
+        then(result => {
+            this.setState({
+                data: {
+                    labels: result.data[0],
+                    datasets: [
+                        {
+                            label: "Bitcoin",
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: result.data[1]
+                        }
+                    ]
+                },
+                chartOptions: {
+                    
+                }
+            })
+        })
+    }
+
+    componentDidMount() {
+        this.getPrices('2019-01-01', '2019-05-01')
+
+    }
+
     render() {
         return (
             <div>
-
                 <LineChart data={this.state.data} width="600" height="250"/>
-
             </div>
             
         )
