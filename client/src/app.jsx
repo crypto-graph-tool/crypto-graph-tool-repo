@@ -11,9 +11,9 @@ const LineChart = require("react-chartjs").Line;
 class App extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             date: new Date(),
+            start_date: this.startDate,
             data: {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [
@@ -34,6 +34,7 @@ class App extends React.Component {
             }
         }
     }
+
     getPrices(start,end) {
         axios.post('/getPrices').
         then(result => {
@@ -61,12 +62,20 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.getPrices('2019-01-01', '2019-05-01')
+        this.getPrices('2019-04-01','2019-05-05')
+    }
+
+    cnewstate() {
+        let start 
+        let end 
+        this.state.startDate._d
+        this.getPrices('2019-04-01','2019-05-05')
     }
 
     onChange = date => this.setState({ date })
 
     render() {
+        console.log(this.state.startDate)
         return (
             <div>
                 <div>
