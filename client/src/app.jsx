@@ -12,8 +12,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: new Date(),
-            start_date: this.startDate,
+            start: '2019-04-01',
+            end: '2019-05-05',
             data: {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [
@@ -36,7 +36,10 @@ class App extends React.Component {
     }
 
     getPrices(start,end) {
-        axios.post('/getPrices').
+        axios.post('/getPrices', {
+            start: start,
+            end: end
+        }).
         then(result => {
             this.setState({
                 data: {
@@ -65,17 +68,22 @@ class App extends React.Component {
         this.getPrices('2019-04-01','2019-05-05')
     }
 
-    cnewstate() {
-        let start 
-        let end 
-        this.state.startDate._d
-        this.getPrices('2019-04-01','2019-05-05')
+    formatStartEnd() {
+        let fullStartDate = JSON.stringify(new Date(this.state.startDate))
+        let fullEndDate = JSON.stringify(new Date(this.state.endDate))
+        var startDate = fullStartDate.substr(1,fullStartDate.indexOf('T')-1);
+        var endDate = fullEndDate.substr(1,fullEndDate.indexOf('T')-1);
+        this.setState({
+            start: startDate,
+            end: endDate
+        })
+        this.getPrices(this.state.start, this.state.end)
+        
     }
 
     onChange = date => this.setState({ date })
 
     render() {
-        console.log(this.state.startDate)
         return (
             <div>
                 <div>
@@ -91,7 +99,10 @@ class App extends React.Component {
                     />
                 </div>
                 <div>
-                    <LineChart data={this.state.data} width="600" height="250"/>
+                    <button onClick={this.formatStartEnd.bind(this)}>Update</button>
+                </div>
+                <div>
+                    <LineChart data={this.state.data} width="1400" height="500"/>
                 </div>
 
                 
