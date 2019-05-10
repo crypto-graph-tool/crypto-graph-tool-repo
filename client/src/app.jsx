@@ -5,7 +5,6 @@ import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-
 const LineChart = require("react-chartjs").Line;
 
 class App extends React.Component {
@@ -18,13 +17,47 @@ class App extends React.Component {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [
                     {
-                        label: "Bitcoin",
-                        fillColor: "rgba(220,220,220,0.2)",
+                        label: "Bitcoin Price",
+                        backgroundColor: 'transparent',
+
                         strokeColor: "rgba(220,220,220,1)",
                         pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        fill: false,
+
+                        data: [65, 590, 800, 810, 15600, 5500, 16000]
+                    },
+                    {
+                        label: "5Day SMA",
+                        backgroundColor: 'transparent',
+
+                        pointColor: "rgba(220,0,0,1)",
+
+                        borderWidth: 1,
+                        borderColor: 'RED',
+                        fill: false,
+
+                        data: [65, 590, 800, 810, 15600, 5500, 16000]
+                    },
+                    {
+                        label: "20Day SMA",
+                        backgroundColor: 'transparent',
+
+                        pointColor: "rgba(220,0,0,1)",
+
+                        borderWidth: 1,
+                        borderColor: 'BLUE',
+                        fill: false,
+
+                        data: [65, 590, 800, 810, 15600, 5500, 16000]
+                    },
+                    {
+                        label: "60Day SMA",
+                        backgroundColor: 'transparent',
+                        pointColor: "rgba(220,0,0,1)",
+                        borderWidth: 1,
+                        borderColor: 'GREEN',
+                        fill: false,
+
                         data: [65, 590, 800, 810, 15600, 5500, 16000]
                     }
                 ]
@@ -47,13 +80,46 @@ class App extends React.Component {
                     datasets: [
                         {
                             label: "Bitcoin",
-                            fillColor: "rgba(220,220,220,0.2)",
+                            backgroundColor: 'transparent',
+
                             strokeColor: "rgba(220,220,220,1)",
                             pointColor: "rgba(220,220,220,1)",
-                            pointStrokeColor: "#fff",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            fill: false,
+
                             data: result.data[1]
+                        },
+                        {
+                            label: "5Day SMA",
+                            backgroundColor: 'transparent',
+
+                            pointColor: "rgba(220,0,0,1)",
+
+                            borderWidth: 1,
+                            borderColor: 'RED',
+                            fill: false,
+                            data: result.data[2]
+                        },
+                        {
+                            label: "20Day SMA",
+                            backgroundColor: 'transparent',
+
+                            pointColor: "rgba(220,0,0,1)",
+
+                            borderWidth: 1,
+                            borderColor: 'BLUE',
+                            fill: false,
+                            data: result.data[3]
+                        },
+                        {
+                            label: "60Day SMA",
+                            
+
+                            pointColor: "rgba(220,0,0,1)",
+
+                            borderWidth: 1,
+                            borderColor: 'RED',
+                            fill: false,
+                            data: result.data[4]
                         }
                     ]
                 },

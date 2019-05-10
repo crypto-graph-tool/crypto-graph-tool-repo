@@ -4,6 +4,7 @@ const port = process.env.PORT || 3001;
 const path = require('path');
 const bodyParser = require('body-parser');
 const getPrices = require('../apiHelper/getPrices.js')
+const sma = require('simple-moving-avg');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,7 +29,11 @@ app.post('/getPrices', (req, res) => {
         data2.push(data[property]);
         final = [data1,data2]
       }
-      res.send(final)
+      let sma5 = sma(final[1], 10)
+      let sma20 = sma(final[1], 20)
+      let sma60 = sma(final[1], 60)
+      let send = [final[0], final[1], sma5, sma20, sma60 ]
+      res.send(send)
     })
 })
 
